@@ -14,7 +14,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       
-      # Step 3: SonarCloud Scan
+      # Step 2: Set up JDK and SonarScanner
+      - name: Setup JDK and SonarScanner
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      # Step 3: Install SonarScanner
+      - name: Install SonarScanner
+        run: |
+          curl -o sonar-scanner-cli.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+          unzip -q sonar-scanner-cli.zip -d $HOME/sonar-scanner
+          echo "export PATH=$HOME/sonar-scanner/sonar-scanner-4.6.2.2472-linux/bin:\$PATH" >> $HOME/.bashrc
+          source $HOME/.bashrc
+
+      # Step 4: SonarCloud Scan
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -25,13 +40,13 @@ jobs:
             -Dsonar.organization=amaan00101 \
             -Dsonar.sources=.
 
-      # Step 4: Scan Docker image with Trivy
+      # Step 5: Scan Docker image with Trivy
       - name: Trivy Scan Docker Image
         run: |
           docker pull your_docker_image:latest
           docker run --rm -v $(pwd):/work aquasec/trivy:latest --exit-code 0 --severity HIGH,CRITICAL your_docker_image:latest
 
-      # Step 5: Push Docker image to DockerHub
+      # Step 6: Push Docker image to DockerHub
       - name: Push to DockerHub
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -40,7 +55,7 @@ jobs:
           echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
           docker push your_docker_image:latest
 
-      # Step 6: Show SonarCloud and Trivy scan reports in console
+      # Step 7: Show SonarCloud and Trivy scan reports in console
       - name: Display Scan Reports
         run: |
           echo "SonarCloud and Trivy Scan Completed Successfully!"

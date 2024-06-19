@@ -36,7 +36,7 @@ jobs:
         run: |
           sonar-scanner \
             -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-            -Dsonar.organization=your_organization_key \
+            -Dsonar.organization=amaan00101 \
             -Dsonar.sources=.
 
       # Step 4: Scan Docker image with Trivy

@@ -18,7 +18,7 @@ jobs:
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Set in GitHub repository secrets
-          SONAR_PROJECT_KEY: your_project_key  # Replace with your SonarCloud project key
+          SONAR_PROJECT_KEY: amaan00101  # Replace with your SonarCloud project key
         run: |
           sonar-scanner \
             -Dsonar.projectKey=${SONAR_PROJECT_KEY} \

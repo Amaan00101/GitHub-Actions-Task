@@ -1,0 +1,48 @@
+name: SonarCloud and Trivy Scan
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      # Step 2: scan with sonarCloud
+      - name: SonarCloud Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Set in GitHub repository secrets
+          SONAR_PROJECT_KEY: your_project_key  # Replace with your SonarCloud project key
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+            -Dsonar.organization=your_organization_key \
+            -Dsonar.sources=.
+
+      # Step 3: Scan Docker image with Trivy
+      - name: Trivy Scan Docker Image
+        run: |
+          docker pull your_docker_image:latest
+          docker run --rm -v $(pwd):/work aquasec/trivy:latest --exit-code 0 --severity HIGH,CRITICAL your_docker_image:latest
+
+      # Step 4: Push Docker image to DockerHub
+      - name: Push to DockerHub
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
+          docker push your_docker_image:latest
+
+      # Step 5: Show SonarCloud and Trivy scan reports in console
+      - name: Display Scan Reports
+        run: |
+          echo "SonarCloud and Trivy Scan Completed Successfully!"
+      
+

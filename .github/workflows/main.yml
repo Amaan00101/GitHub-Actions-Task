@@ -32,7 +32,7 @@ jobs:
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: amaan00101  # Replace with your SonarCloud project keyyy
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}  # Replace with your SonarCloud project keyyy
         run: |
           sonar-scanner \
             -Dsonar.projectKey=${SONAR_PROJECT_KEY} \

@@ -30,6 +30,17 @@ jobs:
           source $HOME/.bashrc
 
       # Step 4: SonarCloud Scan
+      # - name: SonarCloud Scan
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #     SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+      #   run: |
+      #     sonar-scanner \
+      #       -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+      #       -Dsonar.organization=amaan00101 \
+      #       -Dsonar.sources=.
+
+      # Step 4: SonarCloud Scan
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -39,6 +50,7 @@ jobs:
             -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
             -Dsonar.organization=amaan00101 \
             -Dsonar.sources=.
+
 
       # Step 5: Scan Docker image with Trivy
       - name: Trivy Scan Docker Image

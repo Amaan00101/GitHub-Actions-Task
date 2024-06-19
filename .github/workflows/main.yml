@@ -44,8 +44,8 @@ jobs:
       # Step 5: Scan Docker image with Trivy
       - name: Trivy Scan Docker Image
         run: |
-          docker pull your_docker_image:latest
-          docker run --rm -v $(pwd):/work aquasec/trivy:latest --exit-code 0 --severity HIGH,CRITICAL your_docker_image:latest
+          docker pull apppy:latest
+          docker run --rm -v $(pwd):/work aquasec/trivy:latest --exit-code 0 --severity HIGH,CRITICAL apppy:latest
 
       # Step 6: Push Docker image to DockerHub
       - name: Push to DockerHub
@@ -54,7 +54,7 @@ jobs:
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
           echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
-          docker push your_docker_image:latest
+          docker push apppy:latest
 
       # Step 7: Show SonarCloud and Trivy scan reports in console
       - name: Display Scan Reports

@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - main  # Trigger the workflow on push to main branch
+      - main
 
 jobs:
   build:
@@ -27,7 +27,24 @@ jobs:
       - name: Trivy Scan
         run: |
           docker pull amaan00101/apppy:tagname
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname > trivy-report.txt
 
       - name: Display Report in Console
         run: echo "SonarCloud and Trivy Scan Completed"
+
+      - name: Send email with Trivy report
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.your-email-provider.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: Trivy Scan Report for ${GITHUB_REPOSITORY}
+          to: aman.mansuri@einfochips.com
+          body: |
+            Here is the Trivy scan report for the latest Docker image:
+
+            ```
+            $(cat trivy-report.txt)
+            ```
+

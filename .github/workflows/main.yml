@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main  # Trigger the workflow on push to main branch
- 
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,20 +14,23 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Docker image
-        run: docker build -t your-image-name .
+        run: docker build -t my-image .
 
-      - name: SonarCloud Scan
-        run: |
-          docker run --rm \
-            -e SONAR_TOKEN=${{ secrets.SONAR_TOKEN }} \
-            -v "${PWD}:/usr/src" \
-            sonarsource/sonar-scanner-cli \
-            -X
+      # - name: SonarCloud Scan
+      #   uses: sonarsource/sonarcloud-github-action@master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   with:
+      #     args: >
+      #       -Dsonar.projectBaseDir=./  # Adjust if your project is located in a subdirectory
+      #       -Dsonar.java.source=11 /  # Adjust Java version if necessary
+      #       -X
 
       - name: Trivy Scan
         run: |
-          docker pull your-image-name
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy your-image-name
+          docker pull my-image
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy my-image
 
       - name: Send Report via Email
         run: |

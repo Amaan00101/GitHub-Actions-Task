@@ -47,7 +47,7 @@ jobs:
       #     docker pull apppy:latest
       #     docker run --rm -v $(pwd):/work aquasec/trivy:latest --exit-code 0 --severity HIGH,CRITICAL apppy:latest
 
-      # Step 6: Push Docker image to DockerHub
+      # Step 6: Push Docker image to DockerHubb
       - name: Push to DockerHub
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}

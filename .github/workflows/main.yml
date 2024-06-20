@@ -22,11 +22,11 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           sonar-scanner \
-            -Dsonar.projectKey=${{ secrects.SONAR_PROJECT_KEY }} \
-            -Dsonar.organization=${{ secrects.SONAR_ORG_KEY }} \
+            -Dsonar.projectKey=Amaan00101_GitHub-Actions-Task \
+            -Dsonar.organization=Amaan00101 \
             -Dsonar.sources=. \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrects.SONAR_TOKEN }}
+            -Dsonar.login=9f48e3860675fc21ba957720599c14c7c812c18a
 
       - name: Trivy Scan
         run: |

@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main  # Trigger the workflow on push to main branch
-  pull_request:
-    branches:
-      - main  # Trigger the workflow on pull requests to main branch
 
 jobs:
   build:
@@ -24,8 +21,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}  # Replace with your SonarCloud project key
-          SONAR_ORGANIZATION: amaan00101  # Replace with your SonarCloud organization key or name
+          SONAR_PROJECT_KEY: Amaan00101_GitHub-Actions-Task  # Replace with your SonarCloud project key
+          SONAR_ORGANIZATION: Amaan Mansuri # Replace with your SonarCloud organization key or name
 
       - name: Trivy Scan
         run: |

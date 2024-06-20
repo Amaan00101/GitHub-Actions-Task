@@ -16,16 +16,11 @@ jobs:
       - name: Build Docker image
         run: docker build -t amaan00101/apppy:tagname .
 
-      # - name: SonarCloud Scan
-      #   uses: sonarsource/sonarcloud-github-action@master
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #   with:
-      #     args: >
-      #       -Dsonar.projectBaseDir=./  # Adjust if your project is located in a subdirectory
-      #       -Dsonar.java.source=11 /  # Adjust Java version if necessary
-      #       -X
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Trivy Scan
         run: |
@@ -39,3 +34,5 @@ jobs:
       - name: Display Report in Console
         run: |
           echo "SonarCloud and Trivy reports:"
+        #  cat sonarcloud_report.json  
+          cat trivy_report.txt      

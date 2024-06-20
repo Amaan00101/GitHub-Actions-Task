@@ -39,6 +39,7 @@ jobs:
           server_port: 587
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
+          from: ${{ secrets.EMAIL_USERNAME }} 
           subject: Trivy Scan Report for ${GITHUB_REPOSITORY}
           to: aman.mansuri@einfochips.com
           body: |

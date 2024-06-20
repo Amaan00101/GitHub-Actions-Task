@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - main  # Trigger the workflow on push to main branchhh
+      - main  # Trigger the workflow on push to main branch
 
 jobs:
   build:

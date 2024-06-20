@@ -17,16 +17,12 @@ jobs:
         run: docker build -t amaan00101/apppy:tagname .
 
       - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner \
-            -Dsonar.projectKey=Amaan00101_GitHub-Actions-Task \
-            -Dsonar.organization=Amaan00101 \
-            -Dsonar.sources=. \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=9f48e3860675fc21ba957720599c14c7c812c18a
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}  
+          SONAR_ORGANIZATION: ${{ secrets.ORGANIZATION }} 
 
       - name: Trivy Scan
         run: |

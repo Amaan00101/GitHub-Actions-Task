@@ -22,7 +22,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-          SONAR_ORGANIZATION_KEY: ${{ secrets.SONAR_ORG_KEY }}
+          SONAR_ORGANIZATION_KEY: ${{ secrets.SONAR_ORGANIZATION_KEY }}
 
       - name: Trivy Scan
         run: |
@@ -36,4 +36,3 @@ jobs:
       - name: Display Report in Console
         run: |
           echo "SonarCloud and Trivy reports:"
-           

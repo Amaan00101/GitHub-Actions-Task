@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main  # Trigger the workflow on push to main branch
-  pull_request:
-    branches:
-      - main  # Trigger the workflow on pull requests to main branch
 
 jobs:
   build:
@@ -17,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Docker image
-        run: docker build -t your-image-name .
+        run: docker build -t my-image .
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
@@ -32,8 +29,8 @@ jobs:
 
       - name: Trivy Scan
         run: |
-          docker pull your-image-name
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy your-image-name
+          docker pull my-image
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy my-image
 
       - name: Send Report via Email
         run: |

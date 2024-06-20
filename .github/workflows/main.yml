@@ -27,7 +27,8 @@ jobs:
         with:
           args: >
             -Dsonar.projectBaseDir=./  # Adjust if your project is located in a subdirectory
-            -Dsonar.java.source=11  # Adjust Java version if necessary
+            -Dsonar.java.source=11 /  # Adjust Java version if necessary
+            -X
 
       - name: Trivy Scan
         run: |

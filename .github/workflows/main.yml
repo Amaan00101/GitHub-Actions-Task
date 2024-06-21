@@ -38,7 +38,6 @@ jobs:
           echo""
           echo""
 
-
       - name: Send email with Trivy report
         uses: dawidd6/action-send-mail@v3
         with:
@@ -52,4 +51,4 @@ jobs:
           body: |
               Here is the Trivy scan report for the latest Docker image:
               ---
-            attachments: GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
+          attachments: GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt

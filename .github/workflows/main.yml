@@ -27,24 +27,24 @@ jobs:
       - name: Trivy Scan
         run: |
           docker pull amaan00101/apppy:tagname
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname > trivy-report.json & sleep 1000
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname > trivy-report.json 
 
-      # - name: Send email with Trivy report
-      #   uses: dawidd6/action-send-mail@v3
-      #   with:
-      #     server_address: smtp.your-email-provider.com
-      #     server_port: 25
-      #     username: ${{ secrets.EMAIL_USERNAME }}
-      #     password: ${{ secrets.EMAIL_PASSWORD }}
-      #     from: ${{ secrets.EMAIL_USERNAME }} 
-      #     subject: Trivy Scan Report for ${GITHUB_REPOSITORY}
-      #     to: amaan.dev01@gamil.com
-      #     body: |
-      #       echo "Here is the Trivy scan report for the latest Docker image: "
+      - name: Send email with Trivy report
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 25
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          from: ${{ secrets.EMAIL_USERNAME }} 
+          subject: Trivy Scan Report for ${GITHUB_REPOSITORY}
+          to: amaan.dev01@gamil.com
+          body: |
+            echo "Here is the Trivy scan report for the latest Docker image: "
 
-      #       ```
-      #       $(cat trivy-report.txt)
-      #       ```
+            ```
+            $(cat trivy-report.txt)
+            ```
 
       - name: Display Report in Console
         run: echo "SonarCloud and Trivy Scan Completed"

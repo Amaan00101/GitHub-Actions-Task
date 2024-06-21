@@ -37,7 +37,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           from: ${{ secrets.EMAIL_USERNAME }} 
           subject: Trivy Scan Report for ${GITHUB_REPOSITORY}
-          to: aman.mansuri@einfochips.com
+          to: amaan.dev01@gamil.com
           body: |
             Here is the Trivy scan report for the latest Docker image:
 

@@ -26,9 +26,17 @@ jobs:
 
       - name: Trivy Scan
         run: |
-          
           docker pull amaan00101/apppy:tagname
-          docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname | tee GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
+
+          docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname > GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
+          
+          echo""
+          echo""
+          echo""
+          cat GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
+          echo""
+          echo""
+          echo""
 
 
       - name: Send email with Trivy report
@@ -44,4 +52,4 @@ jobs:
           body: |
               Here is the Trivy scan report for the latest Docker image:
               ---
-          attachments: GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
+            attachments: GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt

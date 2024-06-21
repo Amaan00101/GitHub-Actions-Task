@@ -45,7 +45,7 @@ jobs:
             
             _________
 
-            $(cat ${.github/workflows}/trivy-report.txt)
+            $(cat /trivy-report.txt)
 
       - name: Display Report in Console
         run: echo "SonarCloud and Trivy Scan Completed"

@@ -16,35 +16,34 @@ jobs:
       - name: Build Docker image
         run: docker build -t amaan00101/apppy:tagname .
         
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-          SONAR_ORGANIZATION_KEY: ${{ secrets.SONAR_ORGANIZATION_KEY }}
+      # - name: SonarCloud Scan
+      #   uses: SonarSource/sonarcloud-github-action@master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #     SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+      #     SONAR_ORGANIZATION_KEY: ${{ secrets.SONAR_ORGANIZATION_KEY }}
 
       - name: Trivy Scan
         run: |
-          touch ~/GitHub-Actions-Task/trivy-report.txt
+          touch ~/GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
           docker pull amaan00101/apppy:tagname
-          docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname > ~/GitHub-Actions-Task/trivy-report.txt
-          pwd && ls -lah
+          docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname > ~/GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
 
-      - name: Send email with Trivy report
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          from: ${{ secrets.EMAIL_USERNAME }} 
-          subject: Trivy Scan Report
-          to: amaan.dev01@gmail.com
-          body: |
-            Here is the Trivy scan report for the latest Docker image:
-            ---
-          attachments: ~/GitHub-Actions-Task/trivy-report.txt
+      # - name: Send email with Trivy report
+      #   uses: dawidd6/action-send-mail@v3
+      #   with:
+      #     server_address: smtp.gmail.com
+      #     server_port: 587
+      #     username: ${{ secrets.EMAIL_USERNAME }}
+      #     password: ${{ secrets.EMAIL_PASSWORD }}
+      #     from: ${{ secrets.EMAIL_USERNAME }} 
+      #     subject: Trivy Scan Report
+      #     to: amaan.dev01@gmail.com
+      #     body: |
+      #       Here is the Trivy scan report for the latest Docker image:
+      #       ---
+      #      attachments: /home/runner/work/GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
 
-      - name: Display Report in Console
-        run: echo "SonarCloud and Trivy Scan Completed"
+      # - name: Display Report in Console
+      #   run: echo "SonarCloud and Trivy Scan Completed"

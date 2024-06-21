@@ -28,6 +28,7 @@ jobs:
         run: |
           docker pull amaan00101/apppy:tagname
           docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname --format=json > trivy-report.txt
+          cat trivy-report.txt
 
       - name: Send email with Trivy report
         uses: dawidd6/action-send-mail@v3
@@ -47,7 +48,7 @@ jobs:
 
             _________
 
-            cat trivy-report.txt
+            $(sed 's/$/\\n/' trivy-report.txt | tr -d '\n')
 
       - name: Display Report in Console
         run: echo "SonarCloud and Trivy Scan Completed"

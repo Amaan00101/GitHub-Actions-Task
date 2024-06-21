@@ -26,6 +26,7 @@ jobs:
 
       - name: Trivy Scan
         run: |
+          pwd && ls -la
           docker pull amaan00101/apppy:tagname
           docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname > ~/GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
 

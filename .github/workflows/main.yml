@@ -26,6 +26,7 @@ jobs:
 
       - name: Trivy Scan
         run: |
+          touch ./task/trivy-report.pdf
           docker pull amaan00101/apppy:tagname
           docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname > ./tasks/trivy-report.pdf
           pwd && ls -lah

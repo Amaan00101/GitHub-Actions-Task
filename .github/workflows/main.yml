@@ -50,7 +50,7 @@ jobs:
           body: |
             Here is the Trivy scan report for the latest Docker image:
             ---
-           attachments: /home/runner/work/GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
+          attachments: /home/runner/work/GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
 
       - name: Display Report in Console
         run: echo "SonarCloud and Trivy Scan Completed"

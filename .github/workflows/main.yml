@@ -26,9 +26,9 @@ jobs:
 
       - name: Trivy Scan
         run: |
-          touch ./task/trivy-report.pdf
+          touch ./task/trivy-report.txt
           docker pull amaan00101/apppy:tagname
-          docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname > ./tasks/trivy-report.pdf
+          docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname > ./tasks/trivy-report.txt
           pwd && ls -lah
 
       - name: Send email with Trivy report

@@ -27,7 +27,13 @@ jobs:
       - name: Trivy Scan
         run: |
           docker pull amaan00101/apppy:tagname
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname > trivy-report.json 
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname --format=json > trivy-report.json
+          cat trivy-report.json  # Optional: Output the JSON report to verify
+
+      - name: Save Trivy Scan Report
+        run: |
+          cat trivy-report.json > trivy-report.txt
+          rm trivy-report.json  # Clean up the JSON file if no longer needed
 
       - name: Send email with Trivy report
         uses: dawidd6/action-send-mail@v3
@@ -37,14 +43,14 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           from: ${{ secrets.EMAIL_USERNAME }} 
-          subject: Trivy Scan Report for ${GITHUB_REPOSITORY}
+          subject: Trivy Scan Report
           to: amaan.dev01@gmail.com
           body: |
-            echo "Here is the Trivy scan report for the latest Docker image: "
+            Here is the Trivy scan report for the latest Docker image:
 
-            ```
+            _________
+
             $(cat trivy-report.txt)
-            ```
 
       - name: Display Report in Console
         run: echo "SonarCloud and Trivy Scan Completed"

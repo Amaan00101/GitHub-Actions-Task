@@ -26,17 +26,9 @@ jobs:
 
       - name: Trivy Scan
         run: |
+          touch GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
           docker pull amaan00101/apppy:tagname
-
-          docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname > GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
-          
-          echo""
-          echo""
-          echo""
-          cat GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
-          echo""
-          echo""
-          echo""
+          docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image amaan00101/apppy:tagname | tee GitHub-Actions-Task/GitHub-Actions-Task/trivy-report.txt
 
       - name: Send email with Trivy report
         uses: dawidd6/action-send-mail@v3
